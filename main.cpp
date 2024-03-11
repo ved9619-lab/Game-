@@ -7,6 +7,7 @@
 
 int main() {
     // Create Rooms
+    // New
     Room startRoom("You are in a dimly lit room.");
     Room hallway("You are in a long hallway.");
     Room treasureRoom("You have entered a treasure room!");
