@@ -7,4 +7,6 @@ add_executable(Coursework_C__ main.cpp
         Item.cpp
         Room.cpp
         Player.cpp
-        Character.cpp)
+        Character.cpp
+        Area.hpp
+        Area.cpp)

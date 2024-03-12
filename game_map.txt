@@ -1,0 +1,7 @@
+startRoom|You are in a dimly lit room.
+hallway|You are in a long hallway.
+treasureRoom|You have entered a treasure room!
+startRoom|hallway|north
+hallway|startRoom|south
+hallway|treasureRoom|south
+treasureRoom|hallway|north

@@ -1,36 +1,50 @@
 #include <iostream>
-#include <vector>
-#include <map>
-#include "Room.hpp"
-#include "Item.hpp"
+#include <string>
+#include "Area.hpp"
 #include "Player.hpp"
+#include "Item.hpp"
+
+std::string gameMapFilePath = "/Users/vedantpawar/CLionProjects/Coursework C++/game_map.txt";
 
 int main() {
-    // Create Rooms
-    // New
-    Room startRoom("You are in a dimly lit room.");
-    Room hallway("You are in a long hallway.");
-    Room treasureRoom("You have entered a treasure room!");
+    // Create an Area
+    Area gameWorld;
 
-    // Define exits between rooms
-    startRoom.AddExit("north", &hallway);
-    hallway.AddExit("south", &startRoom);
-    hallway.AddExit("north", &treasureRoom);
-    treasureRoom.AddExit("south", &hallway);
+    // Load the game map from the file
+    gameWorld.LoadMapFromFile(gameMapFilePath);
+
+    // Debugging: Print out the names of rooms in the game world
+    std::cout << "Rooms in the game world:" << std::endl;
+    for (const auto& pair : gameWorld.GetRooms()) {
+        std::cout << "- " << pair.first << std::endl;
+    }
 
     // Create Items
     Item key("Key", "A shiny key that looks important.");
     Item sword("Sword", "A sharp sword with a golden hilt.");
 
-    // Add items to rooms
-    startRoom.AddItem(key);
-    treasureRoom.AddItem(sword);
+    // Get the rooms
+    auto startRoom = gameWorld.GetRoom("startRoom");
+    auto treasureRoom = gameWorld.GetRoom("treasureRoom");
+
+    // Check if the rooms exist before adding items
+    if (startRoom != nullptr) {
+        startRoom->AddItem(key);
+    } else {
+        std::cout << "startRoom not found" << std::endl;
+    }
+
+    if (treasureRoom != nullptr) {
+        treasureRoom->AddItem(sword);
+    } else {
+        std::cout << "treasureRoom not found" << std::endl;
+    }
 
     // Create a Player
     Player player("Alice", 100);
 
     // Set the player's starting location
-    player.SetLocation(&startRoom);
+    player.SetLocation(gameWorld.GetRoom("startRoom"));
 
     // Game loop (basic interaction)
     while (true) {
@@ -65,6 +79,10 @@ int main() {
             std::cout << "Enter the direction (e.g., north, south): ";
             std::string direction;
             std::cin >> direction;
+
+            // Debugging: Print the direction input
+            std::cout << "You chose direction: " << direction << std::endl;
+
             Room* nextRoom = player.GetLocation()->GetExit(direction);
             if (nextRoom != nullptr) {
                 player.SetLocation(nextRoom);
@@ -80,5 +98,6 @@ int main() {
             std::cout << "Invalid choice. Try again." << std::endl;
         }
     }
+
     return 0;
 }
