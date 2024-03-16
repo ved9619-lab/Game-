@@ -15,3 +15,4 @@ const std::string& Item::GetDescription() const {
 void Item::Interact() const {
     std::cout << "You interact with " << name << ". " << description << std::endl;
 }
+

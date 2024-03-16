@@ -25,3 +25,4 @@ public:
 
 
 #endif //COURSEWORK_C___CHARACTER_HPP
+

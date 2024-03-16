@@ -1,8 +1,20 @@
-//
-// Created by Vedant Pawar on 12/03/2024.
-//
+#ifndef COMMANDINTERPRETER_HPP
+#define COMMANDINTERPRETER_HPP
 
-#ifndef COURSEWORK_C___COMMANDINTERPRETER_HPP
-#define COURSEWORK_C___COMMANDINTERPRETER_HPP
+#include <iostream>
+#include <sstream>
+#include "Player.hpp"
 
-#endif //COURSEWORK_C___COMMANDINTERPRETER_HPP
+#include <string>
+class Player;
+
+class CommandInterpreter {
+public:
+    CommandInterpreter(Player* player);
+    void interpretCommand(const std::string& command);
+private:
+    Player* player_;
+};
+
+
+#endif // COMMANDINTERPRETER_HPP

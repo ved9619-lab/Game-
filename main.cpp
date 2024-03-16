@@ -1,8 +1,9 @@
 #include <iostream>
-#include <string>
+#include <sstream>
 #include "Area.hpp"
 #include "Player.hpp"
 #include "Item.hpp"
+#include "CommandInterpreter.hpp"
 
 std::string gameMapFilePath = "/Users/vedantpawar/CLionProjects/Coursework C++/game_map.txt";
 
@@ -20,22 +21,10 @@ int main() {
 
     // Get the rooms
     auto startRoom = gameWorld.GetRoom("startRoom");
-    auto hallway = gameWorld.GetRoom("hallway");
-    auto treasureRoom = gameWorld.GetRoom("treasureRoom");
-    auto secretRoom = gameWorld.GetRoom("secretRoom");
-    auto bossRoom = gameWorld.GetRoom("bossRoom");
 
-    // Check if the rooms exist before adding items
+    // Add items to rooms
     if (startRoom != nullptr) {
         startRoom->AddItem(torch);
-    }
-
-    if (treasureRoom != nullptr) {
-        treasureRoom->AddItem(key);
-    }
-
-    if (secretRoom != nullptr) {
-        secretRoom->AddItem(map);
     }
 
     // Create a Player
@@ -43,6 +32,9 @@ int main() {
 
     // Set the player's starting location
     player.SetLocation(startRoom);
+
+    // Create a CommandInterpreter
+    CommandInterpreter interpreter(&player);
 
     // Game loop (basic interaction)
     while (true) {
@@ -68,56 +60,11 @@ int main() {
         std::cout << "4. Move to another room | ";
         std::cout << "5. Quit" << std::endl;
 
-        int choice;
-        std::cin >> choice;
+        std::string command;
+        std::getline(std::cin, command);
 
-        if (choice == 1) {
-            // Player looks around (no action required)
-            std::cout << "You look around the room." << std::endl;
-        } else if (choice == 2) {
-            // Player picks up an item in the room
-            std::cout << "Enter the name of the item you want to pick up: ";
-            std::string itemName;
-            std::cin >> itemName;
-            for (const Item& item : player.GetLocation()->GetItems()) {
-                if (item.GetName() == itemName) {
-                    player.AddItemToInventory(item);
-                    player.GetLocation()->RemoveItem(itemName);
-                    std::cout << "You picked up " << itemName << "." << std::endl;
-                    break;
-                }
-            }
-        } else if (choice == 3) {
-            // Player drops an item from inventory
-            std::cout << "Enter the name of the item you want to drop: ";
-            std::string itemName;
-            std::cin >> itemName;
-            if (player.RemoveItemFromInventory(itemName)) {
-                player.GetLocation()->AddItem(Item(itemName, "An item."));
-                std::cout << "You dropped " << itemName << "." << std::endl;
-            } else {
-                std::cout << "Item not found in inventory." << std::endl;
-            }
-        } else if (choice == 4) {
-            // Player moves to another room
-            std::cout << "Enter the direction (e.g., north, south, east, west): ";
-            std::string direction;
-            std::cin >> direction;
-
-            Room* nextRoom = player.GetLocation()->GetExit(direction);
-            if (nextRoom != nullptr) {
-                player.SetLocation(nextRoom);
-                std::cout << "You move to the next room." << std::endl;
-            } else {
-                std::cout << "You can't go that way." << std::endl;
-            }
-        } else if (choice == 5) {
-            // Quit the game
-            std::cout << "Goodbye!" << std::endl;
-            break;
-        } else {
-            std::cout << "Invalid choice. Try again." << std::endl;
-        }
+        // Pass the command to the interpreter
+        interpreter.interpretCommand(command);
     }
 
     return 0;

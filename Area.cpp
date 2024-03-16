@@ -46,3 +46,4 @@ void Area::LoadMapFromFile(const std::string& filename) {
         }
     }
 }
+
