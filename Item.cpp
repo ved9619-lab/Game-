@@ -1,7 +1,3 @@
-//
-// Created by Vedant Pawar on 11/03/2024.
-//
-
 #include <iostream>
 #include "Item.hpp"
 
@@ -15,6 +11,7 @@ const std::string& Item::GetDescription() const {
     return description;
 }
 
-void Item::Interact() {
+// Define Interact as const
+void Item::Interact() const {
     std::cout << "You interact with " << name << ". " << description << std::endl;
 }

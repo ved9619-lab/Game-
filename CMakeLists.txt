@@ -9,4 +9,5 @@ add_executable(Coursework_C__ main.cpp
         Player.cpp
         Character.cpp
         Area.hpp
-        Area.cpp)
+        Area.cpp
+        CommandInterpreter.hpp)

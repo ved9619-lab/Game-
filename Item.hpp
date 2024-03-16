@@ -1,10 +1,5 @@
-//
-// Created by Vedant Pawar on 11/03/2024.
-//
-
 #ifndef COURSEWORK_C___ITEM_HPP
 #define COURSEWORK_C___ITEM_HPP
-
 
 #include <string>
 
@@ -15,10 +10,12 @@ private:
 
 public:
     Item(const std::string& name, const std::string& desc);
+
     const std::string& GetName() const;
     const std::string& GetDescription() const;
-    void Interact();
-};
 
+    // Mark Interact as const
+    void Interact() const;
+};
 
 #endif //COURSEWORK_C___ITEM_HPP

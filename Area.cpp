@@ -26,6 +26,7 @@ void Area::ConnectRooms(const std::string& room1Name, const std::string& room2Na
         room1->AddExit(direction, room2);
     }
 }
+
 void Area::LoadMapFromFile(const std::string& filename) {
     std::ifstream file(filename);
     std::string line;
