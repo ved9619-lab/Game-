@@ -54,7 +54,7 @@ int main() {
 
         // Display options
         std::cout << "Options: ";
-        std::cout << " Look around | ";
+        std::cout << " 1Look around | ";
         std::cout << " Pick up an item | ";
         std::cout << " Drop an item | ";
         std::cout << " Move to another room | ";
