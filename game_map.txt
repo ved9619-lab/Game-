@@ -10,6 +10,5 @@ hallway|treasureRoom|east|
 hallway|bossRoom|west|
 treasureRoom|hallway|west|key
 bossRoom|hallway|east|
-hallway|secretRoom|south|
-secretRoom|hallway|north|map
-
+hallway|secretRoom|east|
+secretRoom|hallway|west|map

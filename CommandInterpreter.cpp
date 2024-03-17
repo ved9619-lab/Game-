@@ -1,5 +1,4 @@
 #include "CommandInterpreter.hpp"
-#include "Player.hpp"
 
 CommandInterpreter::CommandInterpreter(Player* player) : player_(player) {}
 
@@ -16,6 +15,16 @@ void CommandInterpreter::interpretCommand(const std::string& command) {
         std::string item;
         std::getline(iss >> std::ws, item); // Read the entire line after 'pick'
         player_->pickUpItem(item);
+    } else if (action == "drop") {
+        std::string item;
+        std::getline(iss >> std::ws, item); // Read the entire line after 'drop'
+        player_->dropItem(item);
+    } else if (action == "inventory") {
+        const std::vector<Item>& inventory = player_->GetInventory();
+        std::cout << "Inventory:" << std::endl;
+        for (const Item& item : inventory) {
+            std::cout << "- " << item.GetName() << std::endl;
+        }
     } else if (action == "look") {
         player_->lookAround();
     } else {
