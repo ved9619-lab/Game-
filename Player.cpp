@@ -1,5 +1,5 @@
 #include "Player.hpp"
-#include "Room.hpp"
+#include <iostream>
 
 Player::Player(const std::string& name, int health) : name(name), health(health), location(nullptr) {}
 
@@ -52,6 +52,20 @@ void Player::lookAround() {
         }
     } else {
         std::cout << "Player is not in a valid room." << std::endl;
+    }
+}
+
+void Player::dropItem(const std::string& itemName) {
+    auto it = std::find_if(inventory.begin(), inventory.end(), [&](const Item& item) {
+        return item.GetName() == itemName;
+    });
+
+    if (it != inventory.end()) {
+        location->AddItem(*it);
+        inventory.erase(it);
+        std::cout << "Player drops " << itemName << "." << std::endl;
+    } else {
+        std::cout << "Item '" << itemName << "' not found in inventory." << std::endl;
     }
 }
 
