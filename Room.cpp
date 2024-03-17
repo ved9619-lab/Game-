@@ -35,8 +35,7 @@ const std::vector<Item>& Room::GetItems() const {
     return items;
 }
 
-// Monster methods
-const Monster* Room::GetMonster() const {
+Monster* Room::GetMonster() {
     return monster;
 }
 
@@ -44,10 +43,6 @@ void Room::SetMonster(Monster* newMonster) {
     monster = newMonster;
 }
 
-bool Room::HasMonster() const {
-    return monster != nullptr;
-}
-
-void Room::RemoveMonster() {
-    monster = nullptr;
+bool Room::HasMonster() {
+    return (monster != nullptr);
 }

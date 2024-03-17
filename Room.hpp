@@ -1,11 +1,12 @@
 #ifndef ROOM_HPP
 #define ROOM_HPP
 
-#include <string>
-#include <vector>
-#include <map>  // Include for std::map
 #include "Item.hpp"
 #include "Monster.hpp"
+
+#include <string>
+#include <vector>
+#include <map>
 
 class Room {
 public:
@@ -18,17 +19,15 @@ public:
     void RemoveItem(const std::string& itemName);
     const std::vector<Item>& GetItems() const;
 
-    // Monster methods
-    const Monster* GetMonster() const;
+    Monster* GetMonster();
     void SetMonster(Monster* monster);
-    bool HasMonster() const;
-    void RemoveMonster();
+    bool HasMonster();
 
 private:
     std::string description;
-    std::vector<Item> items;
     std::map<std::string, Room*> exits;
-    Monster* monster; // Pointer to a Monster object
+    std::vector<Item> items;
+    Monster* monster; // Monster in the room
 };
 
-#endif // ROOM_HPP
+#endif

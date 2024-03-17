@@ -1,99 +1,81 @@
 #include "Player.hpp"
+
 #include <iostream>
 
 Player::Player(const std::string& name, int health) : name(name), health(health), location(nullptr) {}
 
 void Player::move(const std::string& direction) {
-    // Implement movement logic
-    if (location != nullptr) {
-        Room* nextRoom = location->GetExit(direction);
-        if (nextRoom != nullptr) {
-            location = nextRoom;
-            std::cout << "Player moves " << direction << "." << std::endl;
-        } else {
-            std::cout << "Cannot move " << direction << ". No path in that direction." << std::endl;
-        }
+    Room* nextRoom = location->GetExit(direction);
+    if (nextRoom != nullptr) {
+        location = nextRoom;
+        std::cout << "Player moves " << direction << "." << std::endl;
     } else {
-        std::cout << "Player is not in a valid room." << std::endl;
+        std::cout << "Cannot move in that direction." << std::endl;
     }
 }
 
 void Player::pickUpItem(const std::string& itemName) {
-    if (location != nullptr) {
-        const std::vector<Item>& roomItems = location->GetItems();
-        auto it = std::find_if(roomItems.begin(), roomItems.end(), [&](const Item& item) {
-            return item.GetName() == itemName;
-        });
-
-        if (it != roomItems.end()) {
-            Item item = *it;
-            AddItemToInventory(item);
+    const std::vector<Item>& roomItems = location->GetItems();
+    for (const Item& item : roomItems) {
+        if (item.GetName() == itemName) {
+            inventory.push_back(item);
             location->RemoveItem(itemName);
-            std::cout << "Player picks up " << itemName << "." << std::endl;
-        } else {
-            std::cout << "Item '" << itemName << "' not found in this room." << std::endl;
+            std::cout << "Picked up " << itemName << "." << std::endl;
+            return;
         }
-    } else {
-        std::cout << "Player is not in a valid room." << std::endl;
     }
-}
-
-void Player::lookAround() {
-    // Implement look around logic
-    if (location != nullptr) {
-        std::cout << "Current Location: " << location->GetDescription() << std::endl;
-        std::cout << "Items in the room:" << std::endl;
-        for (const Item& item : location->GetItems()) {
-            std::cout << "- " << item.GetName() << ": " << item.GetDescription() << std::endl;
-        }
-        std::cout << "Inventory:" << std::endl;
-        for (const Item& item : inventory) {
-            std::cout << "- " << item.GetName() << std::endl;
-        }
-    } else {
-        std::cout << "Player is not in a valid room." << std::endl;
-    }
+    std::cout << "Item '" << itemName << "' not found in this room." << std::endl;
 }
 
 void Player::dropItem(const std::string& itemName) {
-    auto it = std::find_if(inventory.begin(), inventory.end(), [&](const Item& item) {
-        return item.GetName() == itemName;
-    });
-
-    if (it != inventory.end()) {
-        location->AddItem(*it);
-        inventory.erase(it);
-        std::cout << "Player drops " << itemName << "." << std::endl;
-    } else {
-        std::cout << "Item '" << itemName << "' not found in inventory." << std::endl;
+    for (auto it = inventory.begin(); it != inventory.end(); ++it) {
+        if (it->GetName() == itemName) {
+            location->AddItem(*it);
+            inventory.erase(it);
+            std::cout << "Dropped " << itemName << "." << std::endl;
+            return;
+        }
     }
-}
-
-Room* Player::GetLocation() {
-    return location;
-}
-
-void Player::SetLocation(Room* room) {
-    location = room;
-}
-
-void Player::AddItemToInventory(const Item& item) {
-    inventory.push_back(item);
-}
-
-bool Player::RemoveItemFromInventory(const std::string& itemName) {
-    auto it = std::find_if(inventory.begin(), inventory.end(), [&](const Item& item) {
-        return item.GetName() == itemName;
-    });
-
-    if (it != inventory.end()) {
-        inventory.erase(it);
-        return true;
-    }
-
-    return false;
+    std::cout << "Item '" << itemName << "' not found in inventory." << std::endl;
 }
 
 const std::vector<Item>& Player::GetInventory() const {
     return inventory;
+}
+
+void Player::lookAround() const {
+    std::cout << "Current Location: " << location->GetDescription() << std::endl;
+    std::cout << "Items in the room:" << std::endl;
+    for (const Item& item : location->GetItems()) {
+        std::cout << "- " << item.GetName() << ": " << item.GetDescription() << std::endl;
+    }
+}
+
+void Player::Hit(Monster* monster) {
+    // Player attacks the monster
+    int playerDamage = RollDice();
+    std::cout << "You hit the " << monster->GetName() << " for " << playerDamage << " damage." << std::endl;
+    monster->TakeDamage(playerDamage);
+
+    // Check if the monster is defeated
+    if (monster->GetHealth() <= 0) {
+        std::cout << "You have defeated the " << monster->GetName() << "!" << std::endl;
+        location->SetMonster(nullptr); // Remove the monster from the room
+        return;
+    }
+
+    // Monster attacks the player
+    int monsterDamage = monster->Attack();
+    std::cout << "The " << monster->GetName() << " hits you for " << monsterDamage << " damage." << std::endl;
+    health -= monsterDamage;
+
+    if (health <= 0) {
+        std::cout << "You have been defeated by the " << monster->GetName() << "!" << std::endl;
+        // Game over logic here
+    }
+}
+
+int Player::RollDice() const {
+    // Simplified dice rolling, returns a random value between 1 and 10
+    return rand() % 10 + 1;
 }

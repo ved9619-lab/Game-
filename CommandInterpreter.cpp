@@ -1,9 +1,9 @@
 #include "CommandInterpreter.hpp"
-#include "Player.hpp" // Include the header for Player if needed
+#include "Player.hpp"
 
 #include <iostream>
 #include <sstream>
-#include <vector> // Include any other necessary headers
+#include <vector>
 
 CommandInterpreter::CommandInterpreter(Player* player) : player_(player) {}
 
@@ -26,11 +26,11 @@ void CommandInterpreter::interpretSingleCommand(const std::string& singleCommand
         player_->move(direction);
     } else if (action == "pick") {
         std::string item;
-        std::getline(iss >> std::ws, item); // Read the entire line after 'pick'
+        std::getline(iss >> std::ws, item);
         player_->pickUpItem(item);
     } else if (action == "drop") {
         std::string item;
-        std::getline(iss >> std::ws, item); // Read the entire line after 'drop'
+        std::getline(iss >> std::ws, item);
         player_->dropItem(item);
     } else if (action == "inventory") {
         const std::vector<Item>& inventory = player_->GetInventory();
@@ -38,8 +38,16 @@ void CommandInterpreter::interpretSingleCommand(const std::string& singleCommand
         for (const Item& item : inventory) {
             std::cout << "- " << item.GetName() << std::endl;
         }
-    } else if (action == "look around") {
+    } else if (action == "look") {
         player_->lookAround();
+    } else if (action == "hit") {
+        if (player_->GetLocation()->HasMonster()) {
+            Monster* currentMonster = player_->GetLocation()->GetMonster();
+            std::cout << "Monster Health: " << currentMonster->GetHealth() << std::endl;
+            player_->Hit(currentMonster);
+        } else {
+            std::cout << "There is no monster here to hit." << std::endl;
+        }
     } else {
         std::cout << "Unknown command: " << singleCommand << std::endl;
     }
