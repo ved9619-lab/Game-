@@ -38,7 +38,7 @@ void CommandInterpreter::interpretSingleCommand(const std::string& singleCommand
         for (const Item& item : inventory) {
             std::cout << "- " << item.GetName() << std::endl;
         }
-    } else if (action == "look") {
+    } else if (action == "look around") {
         player_->lookAround();
     } else {
         std::cout << "Unknown command: " << singleCommand << std::endl;

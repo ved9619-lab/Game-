@@ -6,6 +6,7 @@
 #include "Player.hpp"
 #include <string>
 #include <vector>
+#include "Room.hpp"
 
 class Player; // Forward declaration
 
