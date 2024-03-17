@@ -1,6 +1,6 @@
 #include "Room.hpp"
 
-Room::Room(const std::string& desc) : description(desc) {}
+Room::Room(const std::string& desc) : description(desc), monster(nullptr) {}
 
 const std::string& Room::GetDescription() const {
     return description;
@@ -35,3 +35,19 @@ const std::vector<Item>& Room::GetItems() const {
     return items;
 }
 
+// Monster methods
+const Monster* Room::GetMonster() const {
+    return monster;
+}
+
+void Room::SetMonster(Monster* newMonster) {
+    monster = newMonster;
+}
+
+bool Room::HasMonster() const {
+    return monster != nullptr;
+}
+
+void Room::RemoveMonster() {
+    monster = nullptr;
+}
