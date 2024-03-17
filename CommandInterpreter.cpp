@@ -1,9 +1,22 @@
 #include "CommandInterpreter.hpp"
+#include "Player.hpp" // Include the header for Player if needed
+
+#include <iostream>
+#include <sstream>
+#include <vector> // Include any other necessary headers
 
 CommandInterpreter::CommandInterpreter(Player* player) : player_(player) {}
 
 void CommandInterpreter::interpretCommand(const std::string& command) {
-    std::istringstream iss(command);
+    std::istringstream commandStream(command);
+    std::string singleCommand;
+    while (std::getline(commandStream, singleCommand, ';')) {
+        interpretSingleCommand(singleCommand);
+    }
+}
+
+void CommandInterpreter::interpretSingleCommand(const std::string& singleCommand) {
+    std::istringstream iss(singleCommand);
     std::string action;
     iss >> action;
 
@@ -28,6 +41,6 @@ void CommandInterpreter::interpretCommand(const std::string& command) {
     } else if (action == "look") {
         player_->lookAround();
     } else {
-        std::cout << "Unknown command: " << command << std::endl;
+        std::cout << "Unknown command: " << singleCommand << std::endl;
     }
 }

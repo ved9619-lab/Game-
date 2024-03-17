@@ -29,3 +29,4 @@ private:
 };
 
 #endif /* ROOM_HPP */
+

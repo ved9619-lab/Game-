@@ -54,11 +54,11 @@ int main() {
 
         // Display options
         std::cout << "Options: ";
-        std::cout << "1. Look around | ";
-        std::cout << "2. Pick up an item | ";
-        std::cout << "3. Drop an item | ";
-        std::cout << "4. Move to another room | ";
-        std::cout << "5. Quit" << std::endl;
+        std::cout << " Look around | ";
+        std::cout << " Pick up an item | ";
+        std::cout << " Drop an item | ";
+        std::cout << " Move to another room | ";
+        std::cout << " Quit" << std::endl;
 
         std::string command;
         std::getline(std::cin, command);
@@ -69,4 +69,5 @@ int main() {
 
     return 0;
 }
+
 

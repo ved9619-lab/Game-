@@ -12,3 +12,4 @@ treasureRoom|hallway|west|key
 bossRoom|hallway|east|
 hallway|secretRoom|east|
 secretRoom|hallway|west|map
+

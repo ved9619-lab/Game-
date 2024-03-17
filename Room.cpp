@@ -34,3 +34,4 @@ void Room::RemoveItem(const std::string& itemName) {
 const std::vector<Item>& Room::GetItems() const {
     return items;
 }
+

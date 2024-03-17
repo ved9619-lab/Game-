@@ -17,3 +17,4 @@ void Character::PickUpItem(Item& item) {
     inventory.push_back(item);
     std::cout << name << " picked up " << item.GetName() << "." << std::endl;
 }
+
