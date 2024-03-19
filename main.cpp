@@ -94,9 +94,10 @@ int main() {
         // Display options
         std::cout << "Options: ";
         std::cout << " Look around | ";
-        std::cout << " Pick up an item | ";
-        std::cout << " Drop an item | ";
-        std::cout << " Move to another room | ";
+        std::cout << " Pick item | ";
+        std::cout << " Drop item | ";
+        std::cout << " Move north/south/east/west | ";
+        std::cout << " Hit  | ";
         std::cout << " Quit" << std::endl;
 
         std::string command;
