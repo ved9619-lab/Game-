@@ -3,9 +3,8 @@
 
 #include <string>
 #include <vector>
-#include "Room.hpp"
 #include "Item.hpp"
-#include "Monster.hpp"
+#include "Room.hpp"
 
 class Player {
 private:
@@ -15,7 +14,7 @@ private:
     std::vector<Item> inventory;
 
 public:
-    Player(const std::string& name, int health);
+    Player(const std::string& name, const std::string& difficulty); // Updated constructor
 
     void move(const std::string& direction, Room* treasureRoom);
     void pickUpItem(const std::string& itemName);
@@ -29,4 +28,4 @@ public:
     int GetHealth() const;
 };
 
-#endif
+#endif // PLAYER_HPP

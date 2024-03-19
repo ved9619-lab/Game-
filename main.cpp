@@ -9,6 +9,12 @@
 std::string gameMapFilePath = "/Users/vedantpawar/CLionProjects/Coursework C++/game_map.txt"; // Update this path with your game map file path
 
 int main() {
+    std::cout << "Welcome to the Adventure Game!" << std::endl;
+    std::cout << "Please select a difficulty level (easy, medium, difficult): ";
+    std::string difficulty;
+    std::cin >> difficulty;
+    std::cin.ignore(); // Ignore newline character left in the input buffer
+
     // Create an Area
     Area gameWorld;
 
@@ -19,6 +25,7 @@ int main() {
     Item torch("torch", "A torch providing a flickering light.");
     Item sword("sword", "An ancient sword of great power.");
     Item treasure ("treasure", "A chest full of gold coins. YOU WIN!");
+
     // Create a Monster
     Monster boss("Dragon", 100);
 
@@ -43,8 +50,8 @@ int main() {
         hallwayRoom->AddItem(sword);
     }
 
-    // Create a Player
-    Player player("Alice", 100);
+    // Create a Player with the selected difficulty level
+    Player player("Alice", difficulty);
 
     // Set the player's starting location
     player.SetLocation(startRoom);
@@ -54,7 +61,7 @@ int main() {
 
     // Game loop (basic interaction)
     while (true) {
-        //if the player health = 0, game over
+        // If the player health = 0, game over
         if (player.GetHealth() <= 0) {
             std::cout << "You have been defeated by the " << boss.GetName() << "!" << std::endl;
             std::cout << "Game Over!" << std::endl;

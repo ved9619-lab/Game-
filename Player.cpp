@@ -3,12 +3,24 @@
 
 #include <iostream>
 
-Player::Player(const std::string& name, int health) : name(name), health(health), location(nullptr) {}
+Player::Player(const std::string& name, const std::string& difficulty) : name(name), location(nullptr) {
+    // Set player health based on difficulty
+    if (difficulty == "easy") {
+        health = 100;
+    } else if (difficulty == "medium") {
+        health = 80;
+    } else if (difficulty == "difficult") {
+        health = 60;
+    } else {
+        std::cerr << "Invalid difficulty level! Setting health to default (100)." << std::endl;
+        health = 100;
+    }
+}
 
-void Player::move(const std::string& direction, Room* treasureRoom) { // Add treasureRoom parameter
+void Player::move(const std::string& direction, Room* treasureRoom) {
     Room* nextRoom = location->GetExit(direction);
     if (nextRoom != nullptr) {
-        if (nextRoom == treasureRoom) { // Check if next room is the treasure room
+        if (nextRoom == treasureRoom) {
             bool hasKey = false;
             for (const Item& item : inventory) {
                 if (item.GetName() == "heavy key") {
