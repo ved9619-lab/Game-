@@ -1,16 +1,11 @@
-startRoom|You are in a dimly lit room.
+startRoom|You are in a dimly lit room and you must defeat the monster to find the treasure.
 hallway|You are in a long hallway.
 treasureRoom|You have entered a treasure room! There is a shiny chest in the corner.
-secretRoom|You found a hidden room filled with ancient artifacts. A mysterious book rests on a pedestal.
-bossRoom|You sense a powerful presence in this room. There is a legendary sword mounted on the wall.
+bossRoom|You sense a powerful presence in this room. You must defeat the boss to continue.
 
 startRoom|hallway|north|torch
 hallway|startRoom|south|
-hallway|treasureRoom|east|
+hallway|treasureRoom|east|treasure
 hallway|bossRoom|west|
-treasureRoom|hallway|west|key
+treasureRoom|hallway|west|
 bossRoom|hallway|east|
-hallway|secretRoom|east|
-secretRoom|hallway|west|map
-
-

@@ -1,12 +1,26 @@
 #include "Player.hpp"
+#include "Monster.hpp" // Include Monster.hpp
 
 #include <iostream>
 
 Player::Player(const std::string& name, int health) : name(name), health(health), location(nullptr) {}
 
-void Player::move(const std::string& direction) {
+void Player::move(const std::string& direction, Room* treasureRoom) { // Add treasureRoom parameter
     Room* nextRoom = location->GetExit(direction);
     if (nextRoom != nullptr) {
+        if (nextRoom == treasureRoom) { // Check if next room is the treasure room
+            bool hasKey = false;
+            for (const Item& item : inventory) {
+                if (item.GetName() == "heavy key") {
+                    hasKey = true;
+                    break;
+                }
+            }
+            if (!hasKey) {
+                std::cout << "You need the heavy key to enter this room!" << std::endl;
+                return;
+            }
+        }
         location = nextRoom;
         std::cout << "Player moves " << direction << "." << std::endl;
     } else {
@@ -78,6 +92,14 @@ void Player::Hit(Monster* monster) {
     if (monster->GetHealth() <= 0) {
         std::cout << "You have defeated the " << monster->GetName() << "!" << std::endl;
         location->SetMonster(nullptr); // Remove the monster from the room
+
+        // Create a heavy key item if the defeated monster is the dragon
+        if (monster->GetName() == "Dragon") {
+            Item heavyKey("heavy key", "A heavy key that looks important.");
+            location->AddItem(heavyKey);
+            std::cout << "You found a Heavy Key!" << std::endl;
+        }
+
         return;
     }
 

@@ -6,7 +6,7 @@
 #include "Monster.hpp"
 #include "CommandInterpreter.hpp"
 
-std::string gameMapFilePath = "/Users/vedantpawar/CLionProjects/Coursework C++/game_map.txt";
+std::string gameMapFilePath = "/Users/vedantpawar/CLionProjects/Coursework C++/game_map.txt"; // Update this path with your game map file path
 
 int main() {
     // Create an Area
@@ -17,10 +17,8 @@ int main() {
 
     // Create Items
     Item torch("torch", "A torch providing a flickering light.");
-    Item key("key", "A heavy key that looks important.");
-    Item map("map", "An old map showing hidden passages.");
     Item sword("sword", "An ancient sword of great power.");
-
+    Item treasure ("treasure", "A chest full of gold coins. YOU WIN!");
     // Create a Monster
     Monster boss("Dragon", 100);
 
@@ -28,6 +26,7 @@ int main() {
     auto startRoom = gameWorld.GetRoom("startRoom");
     auto bossRoom = gameWorld.GetRoom("bossRoom");
     auto hallwayRoom = gameWorld.GetRoom("hallway");
+    auto treasureRoom = gameWorld.GetRoom("treasureRoom");
 
     // Add items to rooms
     if (startRoom != nullptr) {
@@ -51,10 +50,17 @@ int main() {
     player.SetLocation(startRoom);
 
     // Create a CommandInterpreter
-    CommandInterpreter interpreter(&player);
+    CommandInterpreter interpreter(&player, treasureRoom);
 
     // Game loop (basic interaction)
     while (true) {
+        //if the player health = 0, game over
+        if (player.GetHealth() <= 0) {
+            std::cout << "You have been defeated by the " << boss.GetName() << "!" << std::endl;
+            std::cout << "Game Over!" << std::endl;
+            exit(0);
+            break;
+        }
         std::cout << "Current Location: " << player.GetLocation()->GetDescription() << std::endl;
 
         // Display player's health
