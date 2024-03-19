@@ -9,7 +9,7 @@ void Monster::TakeDamage(int damage) {
 
 int Monster::Attack() {
     // Simple attack example, you can customize this
-    return 5; // Monster deals 5 damage per attack
+    return 20; // Monster deals 5 damage per attack
 }
 
 int Monster::GetHealth() const {
@@ -19,3 +19,4 @@ int Monster::GetHealth() const {
 const std::string& Monster::GetName() const {
     return name;
 }
+

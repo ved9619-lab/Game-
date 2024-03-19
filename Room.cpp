@@ -46,3 +46,4 @@ void Room::SetMonster(Monster* newMonster) {
 bool Room::HasMonster() {
     return (monster != nullptr);
 }
+

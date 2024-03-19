@@ -33,16 +33,20 @@ void CommandInterpreter::interpretSingleCommand(const std::string& singleCommand
         std::getline(iss >> std::ws, item);
         player_->dropItem(item);
     } else if (action == "inventory") {
-        const std::vector<Item>& inventory = player_->GetInventory();
+        const std::vector<Item> &inventory = player_->GetInventory();
         std::cout << "Inventory:" << std::endl;
-        for (const Item& item : inventory) {
+        for (const Item &item: inventory) {
             std::cout << "- " << item.GetName() << std::endl;
         }
     } else if (action == "look") {
         player_->lookAround();
+    }else if (action == "quit") {
+            std::cout << "Quitting game." << std::endl;
+            exit(0);
+
     } else if (action == "hit") {
         if (player_->GetLocation()->HasMonster()) {
-            Monster* currentMonster = player_->GetLocation()->GetMonster();
+            Monster *currentMonster = player_->GetLocation()->GetMonster();
             std::cout << "Monster Health: " << currentMonster->GetHealth() << std::endl;
             player_->Hit(currentMonster);
         } else {

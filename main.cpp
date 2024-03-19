@@ -57,11 +57,20 @@ int main() {
     while (true) {
         std::cout << "Current Location: " << player.GetLocation()->GetDescription() << std::endl;
 
+        // Display player's health
+        std::cout << "Player Health: " << player.GetHealth() << std::endl;
+
         // Check if the room has a monster
         if (player.GetLocation()->HasMonster()) {
             const Monster* currentMonster = player.GetLocation()->GetMonster();
             std::cout << "A fearsome " << currentMonster->GetName() << " is in this room!" << std::endl;
             std::cout << "Monster Health: " << currentMonster->GetHealth() << std::endl;
+
+            // Dragon attacks the player when in bossRoom
+            if (player.GetLocation() == bossRoom) {
+                std::cout << "The Dragon attacks you!" << std::endl;
+                player.Hit(&boss);
+            }
         }
 
         // Display items in the room
@@ -78,7 +87,7 @@ int main() {
 
         // Display options
         std::cout << "Options: ";
-        std::cout << " 1Look around | ";
+        std::cout << " Look around | ";
         std::cout << " Pick up an item | ";
         std::cout << " Drop an item | ";
         std::cout << " Move to another room | ";

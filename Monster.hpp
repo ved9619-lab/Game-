@@ -18,3 +18,4 @@ public:
 };
 
 #endif // MONSTER_HPP
+

@@ -19,8 +19,9 @@ public:
     void lookAround() const;
     void Hit(Monster* monster);
 
-    Room* GetLocation() const { return location; }
-    void SetLocation(Room* room) { location = room; }
+    Room* GetLocation() const; // Function declaration for GetLocation
+    void SetLocation(Room* room); // Function declaration for SetLocation
+    int GetHealth() const; // Function declaration for GetHealth
 
 private:
     std::string name;
@@ -31,4 +32,4 @@ private:
     int RollDice() const; // Helper function for damage calculation
 };
 
-#endif
+#endif  // PLAYER_HPP

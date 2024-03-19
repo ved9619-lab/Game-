@@ -54,7 +54,24 @@ void Player::lookAround() const {
 void Player::Hit(Monster* monster) {
     // Player attacks the monster
     int playerDamage = RollDice();
-    std::cout << "You hit the " << monster->GetName() << " for " << playerDamage << " damage." << std::endl;
+
+    // Check if player has a sword in inventory
+    bool hasSword = false;
+    for (const Item& item : inventory) {
+        if (item.GetName() == "sword") {
+            hasSword = true;
+            break;
+        }
+    }
+
+    if (hasSword) {
+        // If player has sword, increase damage
+        std::cout << "You hit the " << monster->GetName() << " with your sword for " << playerDamage * 4 << " damage." << std::endl;
+        playerDamage *= 4; // Quadruple damage with sword (40 damage)
+    } else {
+        std::cout << "You hit the " << monster->GetName() << " for " << playerDamage << " damage." << std::endl;
+    }
+
     monster->TakeDamage(playerDamage);
 
     // Check if the monster is defeated
@@ -69,6 +86,7 @@ void Player::Hit(Monster* monster) {
     std::cout << "The " << monster->GetName() << " hits you for " << monsterDamage << " damage." << std::endl;
     health -= monsterDamage;
 
+    // Check if the player is defeated
     if (health <= 0) {
         std::cout << "You have been defeated by the " << monster->GetName() << "!" << std::endl;
         // Game over logic here
@@ -78,4 +96,16 @@ void Player::Hit(Monster* monster) {
 int Player::RollDice() const {
     // Simplified dice rolling, returns a random value between 1 and 10
     return rand() % 10 + 1;
+}
+
+Room* Player::GetLocation() const {
+    return location;
+}
+
+void Player::SetLocation(Room* newLocation) {
+    location = newLocation;
+}
+
+int Player::GetHealth() const {
+    return health;
 }
