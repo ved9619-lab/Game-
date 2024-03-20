@@ -49,6 +49,9 @@ int main() {
     if (hallwayRoom != nullptr) {
         hallwayRoom->AddItem(sword);
     }
+    if (treasureRoom != nullptr) {
+        treasureRoom->AddItem(treasure);
+    }
 
     // Create a Player with the selected difficulty level
     Player player("Alice", difficulty);

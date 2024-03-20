@@ -12,4 +12,5 @@ add_executable(Coursework_C__ main.cpp
         Area.cpp
         CommandInterpreter.hpp
         CommandInterpreter.cpp
-        Monster.cpp)
+        Monster.cpp
+)

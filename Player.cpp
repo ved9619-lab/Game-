@@ -1,7 +1,7 @@
 #include "Player.hpp"
-#include "Monster.hpp" // Include Monster.hpp
-
+#include "Monster.hpp"
 #include <iostream>
+#include <cstdlib> // For rand()
 
 Player::Player(const std::string& name, const std::string& difficulty) : name(name), location(nullptr) {
     // Set player health based on difficulty
@@ -127,6 +127,13 @@ void Player::Hit(Monster* monster) {
     }
 }
 
+void Player::SpecialAbility() {
+    // Simulating a special ability by increasing player health
+    int healAmount = 20; // Health increase amount
+    health += healAmount;
+    std::cout << "You used your special ability and gained " << healAmount << " health!" << std::endl;
+}
+
 int Player::RollDice() const {
     // Simplified dice rolling, returns a random value between 1 and 10
     return rand() % 10 + 1;
@@ -142,4 +149,8 @@ void Player::SetLocation(Room* newLocation) {
 
 int Player::GetHealth() const {
     return health;
+}
+
+void Player::SetHealth(int newHealth) {
+    health = newHealth;
 }

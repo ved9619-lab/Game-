@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+//#include"SpecialAbility.hpp"
 
 CommandInterpreter::CommandInterpreter(Player* player, Room* treasureRoom) : player_(player), treasureRoom_(treasureRoom) {}
 
@@ -51,6 +52,8 @@ void CommandInterpreter::interpretSingleCommand(const std::string& singleCommand
         } else {
             std::cout << "There is no monster here to hit." << std::endl;
         }
+    } else if (action == "special") {
+        player_->SpecialAbility();
     } else {
         std::cout << "Unknown command: " << singleCommand << std::endl;
     }
