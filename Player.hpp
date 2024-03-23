@@ -2,17 +2,16 @@
 #define PLAYER_HPP
 
 #include "Room.hpp"
-#include "Monster.hpp"
 #include "Item.hpp"
-#include <iostream>
+#include "Monster.hpp"
 #include <vector>
 #include <string>
 
 class Player {
 private:
     std::string name;
-    int health;
     Room* location;
+    int health;
     std::vector<Item> inventory;
 
 public:
@@ -30,6 +29,7 @@ public:
     void SetLocation(Room* newLocation);
     int GetHealth() const;
     void SetHealth(int newHealth);
+    void DisplayHealthBar() const;
 };
 
-#endif
+#endif // PLAYER_HPP

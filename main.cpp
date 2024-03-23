@@ -24,7 +24,7 @@ int main() {
     // Create Items
     Item torch("torch", "A torch providing a flickering light.");
     Item sword("sword", "An ancient sword of great power.");
-    Item treasure ("treasure", "A chest full of gold coins. YOU WIN!");
+    Item treasure("treasure", "A chest full of gold coins. YOU WIN!");
 
     // Create a Monster
     Monster boss("Dragon", 100);
@@ -71,10 +71,11 @@ int main() {
             exit(0);
             break;
         }
-        std::cout << "Current Location: " << player.GetLocation()->GetDescription() << std::endl;
 
-        // Display player's health
-        std::cout << "Player Health: " << player.GetHealth() << std::endl;
+        // Display player's health and health bar
+        std::cout << "Current Location: " << player.GetLocation()->GetDescription() << std::endl;
+        player.DisplayHealthBar(); // Display health bar
+        std::cout << std::endl;
 
         // Check if the room has a monster
         if (player.GetLocation()->HasMonster()) {

@@ -18,4 +18,3 @@ void Character::PickUpItem(Item& item) {
     std::cout << name << " picked up " << item.GetName() << "." << std::endl;
 }
 
-
