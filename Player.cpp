@@ -71,7 +71,6 @@ const std::vector<Item>& Player::GetInventory() const {
 
 void Player::lookAround() const {
     std::cout << "Current Location: " << location->GetDescription() << std::endl;
-    std::cout << "Player Health: " << health << std::endl;
     std::cout << "Items in the room:" << std::endl;
     for (const Item& item : location->GetItems()) {
         std::cout << "- " << item.GetName() << ": " << item.GetDescription() << std::endl;
@@ -116,7 +115,7 @@ void Player::Hit(Monster* monster) {
         return;
     }
 
-    // Monster attacks the player every
+    // Monster attacks the player
     int monsterDamage = monster->Attack();
     std::cout << "The " << monster->GetName() << " hits you for " << monsterDamage << " damage." << std::endl;
     health -= monsterDamage;
@@ -124,12 +123,13 @@ void Player::Hit(Monster* monster) {
     // Check if the player is defeated
     if (health <= 0) {
         std::cout << "You have been defeated by the " << monster->GetName() << "!" << std::endl;
+        // Game over logic here
     }
 }
 
 void Player::SpecialAbility() {
-
-    int healAmount = 20;
+    // Simulating a special ability by increasing player health
+    int healAmount = 20; // Health increase amount
     health += healAmount;
     std::cout << "You used your special ability and gained " << healAmount << " health!" << std::endl;
 }
@@ -153,20 +153,4 @@ int Player::GetHealth() const {
 
 void Player::SetHealth(int newHealth) {
     health = newHealth;
-}
-
-void Player::DisplayHealthBar() const {
-    int barWidth = 20; // Width of the health bar
-    int remainingHealth = health;
-
-    std::cout << "Health: [";
-    int numBars = (remainingHealth * barWidth) / 100;
-    for (int i = 0; i < barWidth; ++i) {
-        if (i < numBars) {
-            std::cout << "#"; // Represents remaining health
-        } else {
-            std::cout << "-"; // Represents lost health
-        }
-    }
-    std::cout << "] " << health << " / 100" << std::endl;
 }

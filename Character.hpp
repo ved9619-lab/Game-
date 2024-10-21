@@ -1,7 +1,3 @@
-//
-// Created by Vedant Pawar on 11/03/2024.
-//
-
 #ifndef COURSEWORK_C___CHARACTER_HPP
 #define COURSEWORK_C___CHARACTER_HPP
 
